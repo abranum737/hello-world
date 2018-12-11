@@ -1,0 +1,69 @@
+# [] create Element_Quiz
+
+
+#get_names function to get 5 answers
+def get_names():
+    names_list = []
+    counter = 5
+    while counter:
+        new_item = input("list any of the first 20 elements in the Periodic table: ").lower()
+    
+        if new_item in names_list:
+            print(new_item,"already in list, enter new item")
+        elif new_item == "":
+            print("enter item not blank: ")
+        else:
+            names_list.append(new_item)
+            counter -= 1      
+            print(counter,"answers left")
+            
+    return names_list
+
+
+
+#open and close elements, create list of first 20 elements
+!curl https://raw.githubusercontent.com/MicrosoftLearning/intropython/master/elements1_20.txt -o elements1_20.txt
+elements = open("elements1_20.txt",'r')
+
+length = elements.readlines()
+length_value = len(length)
+
+elements.seek(0)
+
+elements20 = []
+elements20.append(elements.readline().strip().lower())
+
+i = 0
+
+while i< length_value-1:
+    elements20.append(elements.readline().strip().lower())
+    i+=1
+
+elements.close()
+
+
+#call get_names function, compare to elements 20
+names_list = []
+
+elements20
+
+correct = 0
+wrong = 0
+
+correct_list = ''
+wrong_list = ''
+
+for name in get_names():
+    if name in elements20:
+        correct +=1
+        correct_list += name + " "
+
+    else:
+        wrong += 1
+        wrong_list += name + " "
+
+score = correct*20
+
+
+print("\nScore is",score,"%. There were",correct,"correct, and",wrong,"wrong.")
+print("\nCorrect list:",correct_list,"\nWrong list:",wrong_list)
